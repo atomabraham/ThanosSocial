@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('text');
-            $table->binary('image');
-            $table->integer('status');
+            $table->binary('image')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('status')->default('0');
             $table->timestamps();
         });
     }

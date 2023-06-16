@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         //la table qui montre quel utilisateur à été effectué par un utilisareur;
-        Schema::create('user_post', function (Blueprint $table) {
+        Schema::create('user_posts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('post_id');

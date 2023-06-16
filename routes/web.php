@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,18 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+//Route::get('/', function () {
     //return view('welcome');
     //return view('header');
-    return view('auth.login');
-});
+    //return view('auth.login');
+//});
+//route::get('/',[App\Http\Controllers\PostsController::class,'show']);
+route::post('/CreatePost',[App\Http\Controllers\PostsController::class,'store'])->name('post.store');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/', [App\Http\Controllers\PostsController::class,'show'])->name('dashboard');
+        //return view('dashboard')
 });
+
+route::get('/dashboard',[App\Http\Controllers\PostsController::class,'destroy'])->name('deletePost');

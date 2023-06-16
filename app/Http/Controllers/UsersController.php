@@ -15,5 +15,6 @@ class UsersController extends Controller
         $users = DB::table('users')->get();
 
         return view('auth.login', ['users' => $users]);
+       // return view('dashboard', ['users' => $users]);
     }
 }
