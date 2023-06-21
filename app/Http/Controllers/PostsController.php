@@ -36,7 +36,17 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        Post::create(['text'=>$request->InputPost,'user_id'=>$request->id_user  ]);
+        //$image=$request->file('inputFile');
+        //$profileImage=0;
+        /*if($image){
+            $destinationPath='images/';
+            $profileImage=date('ymdHis').".".$image->getClientOriginalExtension();
+            $image->move($destinationPath,$profileImage);
+            //$post->image=$profileImage;
+        }*/
+
+
+        Post::create(['text'=>$request->InputPost,'user_id'=>$request->id_user]);
         return to_route('dashboard');
     }
 
@@ -47,20 +57,10 @@ class PostsController extends Controller
 
     public function show(Post $posts)
     {
-        //
-        //$expectedSlug=$post->getSlug();
-        //return to_route('dashboard',['slug'=>$expectedSlug,'post'=>$post]);
         $posts=Post::all()->sortByDesc('created_at');
-        /*$i=0;
-        foreach($posts as $post){
-            $pub[$i]=User::find($post->user_id);
-            $i++;
-        }
-        $count=$i;
-        */
+
         // print_r($pub) ;
         return view('dashboard',compact('posts'));
-        //return view('dashboard',compact('posts'));
     }
 
     /**

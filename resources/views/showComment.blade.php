@@ -93,28 +93,17 @@
     </div>
     <!--Block du milieu-->
     <div class="col-6" style="">
-        <!--Block for make a post-->
-        <div class="row" style="box-shadow: rgba(0, 0, 0, 0.24) 0.5px 1px 1px 0px;background-color:white;margin-top:10px;border-radius:8px;padding-top: 2%;padding-bottom: 2%">
-            <div class="col-1">
-                <img class="h-10 w-10 rounded-full object-cover inline-flex items-right justify-end" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
-            </div>
-            <div class="col-10">
-                 <input class="" type="text" name="" id=""  data-bs-toggle="modal" data-bs-target="#staticBackdrop" placeholder="Quoi de neuf, {{Auth::user()->secondname}} ?" style="width:100%;border:none;background-color:rgb(233, 231, 231);border-radius:20px;cursor:pointer;" disabled>
-            </div>
-        </div>
         <!--affichage des postes-->
-
-        @foreach ($posts as $post)
             <div class="row" style="background-color:white;margin-top: 5%;padding:10px;box-shadow: rgba(0, 0, 0, 0.24) 0.5px 1px 1px 0px;border-radius:8px">
                 <!--l'entète du block de la publication-->
                 <div class="row">
                     <!--affichage de la photo de profil,du nom et de la date-->
                     <div class="col-2">
-                        <img class="h-10 w-10 rounded-full object-cover inline-flex items-right justify-end" src="{{ $post->user->profile_photo_url }}" alt="{{ $post->user->name }}" />
+                        <img class="h-10 w-10 rounded-full object-cover inline-flex items-right justify-end" src="" />
                     </div>
                     <div class="col-5" style="">
-                        <p style="font-size: 13px;font-weight: bold;color:black">{{ $post->user->secondname }} {{$post->user->name}}</p>
-                        <p style="margin-top: -8%;font-size:13px">{{$post->created_at}}</p>
+                        <p style="font-size: 13px;font-weight: bold;color:black"> </p>
+                        <p style="margin-top: -8%;font-size:13px"></p>
                     </div>
                     <!--affichage des boutons d'options-->
                     <div class="col-5">
@@ -181,7 +170,7 @@
                 <!--affichage du contenu du post-->
                 <div class="row" id="divpost" style="background-color:#275baf" id="block-post">
                     <div class="col-10">
-                        <p style="color: white;text-align:center;padding-left:60px;padding-top:90px;padding-bottom:65px;font-size:30px">{{$post->text}}</p>
+                        <p style="color: white;text-align:center;padding-left:60px;padding-top:90px;padding-bottom:65px;font-size:30px">{{$PostText}}</p>
                     </div>
                 </div>
                 <!--affichage du nombre de j'aime et de commentaire-->
@@ -228,21 +217,6 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <form action="" method="get">
-
-                            <button type="submit">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
-                                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                        </svg>
-                                    </div>
-                                    <div class="col-4" style="margin-top: 5px">Commenter</div>
-                                </div>
-                            </button>
-                        </form>
-                    </div>
-                    <div class="col-4">
                         <div class="row">
                             <div class="col-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
@@ -253,131 +227,21 @@
                         </div>
                     </div>
                 </div>
+                <!--script qui gère les background-->
+                <script>
+                    function entierAleatoire(min, max)
+                    {
+                     return Math.floor(Math.random() * (max - min + 1)) + min;
+                    }
+                    //Utilisation
+                    //La variable contient un nombre aléatoire compris entre 1 et 10
+                    var entier = entierAleatoire(1, 3);
+                    if(entier==1){
+                        divpost.style.color='red'
+                    }
+                </script>
             </div>
-        @endforeach
-        <!--le block qui affiche le modal du posts-->
-        <div class="row">
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                <form action="{{route('post.store')}}" method="POST">
-                    @csrf
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel" style="text-align:center;margin-left:25%"><b>Créer une publication</b></h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img class="h-10 w-10 rounded-full object-cover inline-flex items-right justify-end" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
-                                </div>
-                                <div class="col-10">
-                                    <p><b>{{ Auth::user()->secondname}} {{ Auth::user()->name}}</b></p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <textarea name="InputPost" id="" cols="10" rows="2" placeholder="Quoi de neuf, {{ Auth::user()->secondname}} ?" style="border: none;font-size:20px;"></textarea>
-                                <input type="hidden" name="id_user" value="{{ Auth::user()->id}}">
-                                <input type="hidden" name="name_user" value="{{ Auth::user()->name}}">
-                                <input type="hidden" name="secondname_user" value="{{ Auth::user()->secondname}}">
-                                <input type="hidden" name="profile_user" value="{{ Auth::user()->profile_photo_path}}">
-                            </div>
-                            <div class="row" id="blockImage" style="height: 300px;text-align:center;display:none">
-                                <label for="inputFile">
-                                    <img src="img\logo 3.png"  alt="image" class="picture" style="opacity: 0.2;height:300px;width:100%">
-                                </label>
-                            </div>
 
-                            <input type="file" name="inputFile" id="inputFile" style="display:block;visibility:hidden">
-
-                            <div class="row">
-                                <div class="col-4">
-                                    <button type="button">
-                                        <div class="row">
-                                            <div class="col-1" style="margin-top: 3%">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-video" viewBox="0 0 16 16" style="color: rgba(0, 0, 0, 0.747)">
-                                                    <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                                                    <path d="M9 6a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-                                                    <path d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h7z"/>
-                                                </svg>
-                                            </div>
-                                            <div class="col-8">
-                                                Vidéo
-                                            </div>
-                                        </div>
-                                    </button>
-                                </div>
-                                <div class="col-4 flex justify-center">
-                                    <button type="button" id="buttonImage" name="buttonImage">
-                                        <div class="row">
-                                            <div class="col-1" style="margin-top: 3%">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-video" viewBox="0 0 16 16" style="color: rgba(0, 0, 0, 0.747)">
-                                                    <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                                    <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/>
-                                                </svg>
-                                            </div>
-                                            <div class="col-8">
-                                                Image
-                                            </div>
-                                        </div>
-                                    </button>
-                                </div>
-                                <div class="col-4 flex justify-end">
-                                    <button type="button">
-                                        <div class="row">
-                                            <div class="col-1" style="margin-top: 3%">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-video" viewBox="0 0 16 16" style="color: rgba(0, 0, 0, 0.747)">
-                                                    <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                                                    <path d="M9 6a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-                                                    <path d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h7z"/>
-                                                </svg>
-                                            </div>
-                                            <div class="col-8">
-                                                GIF
-                                            </div>
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" style="width: 100%;background-color:#9b26b6;border:none">Publier</button>
-                        </div>
-                    </div>
-                </form>
-                </div>
-            </div>
-        </div>
-
-    </div>
     <div class="col-3"></div>
 </div>
-
-<!--Scrip qui permet de récupérer et afficher une image-->
-<script>
-    let buttonImage=document.getElementById('buttonImage');
-    let file=document.getElementById('inputFile');
-    /*buttonImage.addEventListener('click',function(){
-        //alert('hello world!');
-        if(inputFile.style.display=='none'){
-            inputFile.style.display='block'
-        }else{
-            inputFile.style.display='none'
-        }
-    })*/
-    buttonImage.addEventListener('click',function(){
-        //alert('hello world!');
-        if(blockImage.style.display=='none'){
-            blockImage.style.display='block'
-        }else{
-            blockImage.style.display='none'
-        }
-    })
-    let picture=document.querySelector(".picture")
-    file.addEventListener('change',function(){
-        picture.src=window.URL.createObjectURL(file.files[0])
-        picture.style.opacity="1"
-    })
-</script>
 

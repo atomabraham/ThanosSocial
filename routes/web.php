@@ -32,3 +32,4 @@ Route::middleware([
 });
 
 route::get('/dashboard',[App\Http\Controllers\PostsController::class,'destroy'])->name('deletePost');
+route::get('/post/{userId}/{postId}/{postText}{userName}',[App\Http\Controllers\CommentsControllers::class,'show'])->name('comment.show');
